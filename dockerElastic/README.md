@@ -15,4 +15,7 @@
 - `curl http://localhost:9200/_cat/indices`
 - Run another container of logstash with another logconfig `docker run -d -p 9500:9500  -h logstash2 --name logstash2 --link elasticsearch:elasticsearch --rm -v "$PWD":/config-dir logstash -f /config-dir/logstash2.conf`
 
+###### _Execute Logstash_
+- `logstash -f config-dir/logstash.conf`
+
 
