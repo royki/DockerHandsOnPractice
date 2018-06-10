@@ -1,8 +1,10 @@
 #### Run to create MySql container from docker hub
 - `docker run --name mysql-basic \
-    -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 \
-    -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 \
-    -d mysql:5.6`
+    -e MYSQL_USER=user1 \
+	-e MYSQL_PASSWORD=mypa55 \
+    -e MYSQL_DATABASE=items \
+	-e MYSQL_ROOT_PASSWORD=r00tpa55 \
+    -p 30306:3306 mysql:latest`
 
 - `docker run --name mysql-basic -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 -d mysql:5.6`
 
@@ -21,3 +23,4 @@
 	- `insert into Courses (id, name) values (1, 'DO081x');`
 - Run the following command to verify that the project information was added to the table:
 	- `select * from Courses;`
+
