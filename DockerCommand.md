@@ -1,8 +1,8 @@
-### _Docker Command_
+# _Docker Command_
 
 _Docker Run/Pull/Stop/Delete_
-- `docker run --name "name_of_container" -d "container_image_name"`
-    + `-d` in daemon mode(run behind the process)
+- `docker run --name "name_of_container" -d "container_image_name"`  
+  - `-d` in daemon mode(run behind the process)
 - `docker ps` (list of running docker containers/to identify a running container in docker)
 - `docker ps -a` (list of all docker containers, that are not discarded yet)
 - `docker inspect` (runtime information of container; listing metadata about a running or stopped container in json format)
@@ -13,8 +13,8 @@ _Docker Run/Pull/Stop/Delete_
 - `docker kill -s SIGKILL CONTIANER_NAME/CONTAINER_ID`
 - `docker restart CONTIANER_NAME/CONTAINER_ID`
 - `docker restart CONTIANER_NAME/CONTAINER_ID` (my-httpd-container)
-- `docker rmi CONTIANER_NAME/CONTAINER_ID` (deleting a container from machine/cached)`
-- `docker rm CONTIANER_NAME/CONTAINER_ID` (deleting a container not the image)
+- `docker rmi CONTIANER_NAME/CONTAINER_ID` (delete a container image from machine/cached)`
+- `docker rm CONTIANER_NAME/CONTAINER_ID` (delete a container not the image)
 - `docker rm $(docker ps -aq)` (deleting all container, `-q` returns only Id of containers)
 - `docker stop $(docker ps -q)`
 - `docker exec -it CONTAINER_NAME/CONTAINER_ID bash` (`exec`: to enter the running docker container; `it`: interactive terminal; to enter the running docker container/access the running container bash shell)
