@@ -81,3 +81,13 @@ _Push an Image to the Registry_
 - To mount volume within host and container
     - `docker run -p host_port:container_port --name container_name -v /path/folder:/path/in_container image_name`
     - Example: `docker run -p 81:80 --name localdocker -v /home/user/Docker/src:/var/www/html testdocker`
+### _Docker Inspect_
+- `docker inspect -f=='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name|ID`
+- `docker inspect -f=='{{range .NetworkSettings.Networks}}{{.MacAddress}}{{end}}' container_name|ID`
+- `docker inspect -f=='{{.LogPath}}' container_name|ID`
+- `docker inspect --format='{{.Config.Image}}' container_name|ID`
+
+### _Docker Log_
+- `docker logs --details container_name|ID`
+- `docker logs --tail all container_name|ID`
+- `docker logs -f container_name|ID`
