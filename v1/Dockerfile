@@ -24,7 +24,7 @@ COPY ../pom.xml ${PROJECT_PATH}
 # Mount Project Dir to Docker Image
 VOLUME ["MOBILE_API"]
 
-ENV fleetId KIA-ESMDD
+ENV stationId "PUT ID"
 
-CMD "mvn clean test -DfleetId=${fleetId} site"
+CMD "mvn clean test -DstationId=${stationId} site"
 
