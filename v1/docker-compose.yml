@@ -6,3 +6,4 @@ services:
       args: 
         default_envId: ${envId}
     env_file: .env
+    container_name: ${envId}
