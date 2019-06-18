@@ -24,8 +24,12 @@ COPY . .
 # Mount Project Dir to Docker Image
 VOLUME ["src"]
 
-ARG stationId "PUT ID"
+# Set the default fleetId. During build time of the image
+ARG default_envId "PUT ID"
+
+# Set envId as env variable to pass the value during container runtime
+ENV envId = ${default_envId}
 
 # `stationId` is the maven project `propertyValue`
-CMD "mvn clean test -DstationId=${stationId} site"
+CMD "mvn clean test -DenvId=${envId} site"
 
