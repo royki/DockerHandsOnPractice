@@ -1,0 +1,8 @@
+version: '3'
+services: 
+  soapui:    
+    build:
+      context: .
+      args: 
+        default_envId: ${envId}
+    env_file: .env
