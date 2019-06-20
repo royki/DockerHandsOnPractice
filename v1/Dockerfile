@@ -1,6 +1,8 @@
 # Maven Image with Java8
 FROM maven:3.6.1-jdk-8-slim AS base
 
+LABEL maintainer "royki"
+
 # Set MAVEN_HOME
 # /usr/share/maven
 ENV MAVEN_HOME /usr/bin/mvn
