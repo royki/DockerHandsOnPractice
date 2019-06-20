@@ -1,0 +1,24 @@
+image: docker:stable
+
+variables:
+    DOCKER_DRIVER: overlay2
+
+before_script:
+   - docker info
+
+stages:
+    - Build
+    - Test
+
+services:
+    - docker:dind
+    
+build:
+    stage: Build
+    script:
+        - docker build -t soapui:v1 .
+        
+test:
+    stage: Test
+    script:
+        - docker run --rm -e envId=QA -it --name QA soapui:v1
