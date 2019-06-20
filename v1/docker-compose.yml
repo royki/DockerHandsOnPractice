@@ -7,3 +7,4 @@ services:
         default_envId: ${envId}
     env_file: .env
     container_name: ${envId}
+    command: mvn clean test -DfleetId=${envId}    
