@@ -2,7 +2,8 @@
 
 _Docker Run/Pull/Stop/Delete_
 - `docker run --name "name_of_container" -d "container_image_name"`  
-  - `-d` in daemon mode(run behind the process)
+  - `-d` in daemon mode (run behind the process)
+- `docker run --name "name_of_container" -d -t "container_image_name"` (to create the container and keep it up/running behind)
 - `docker ps` (list of running docker containers/to identify a running container in docker)
 - `docker ps -a` (list of all docker containers, that are not discarded yet)
 - `docker inspect` (runtime information of container; listing metadata about a running or stopped container in json format)
