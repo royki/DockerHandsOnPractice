@@ -94,3 +94,7 @@ _Push an Image to the Registry_
 - `docker logs --details container_name|ID`
 - `docker logs --tail all container_name|ID`
 - `docker logs -f container_name|ID`
+
+### _Run Docker in Remote_
+- `docker -H=remote-docker-engine:PORT_NO`
+- example - `docker -H=10.123.2.1:2375 run --name -d lb_nginx nginix:v1`
