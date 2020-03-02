@@ -102,3 +102,10 @@ _Push an Image to the Registry_
 ### _Run with resource limit_
 - `docker run --cpus=.5 --name ubuntu_container -d ubuntu` [not more than 50% cpus]
 - `docker run --memory=100m --name ubuntu_container -d ubuntu` [use 100 mb]
+
+### _Docker Volume_
+- `docker volume create data_volume` . It will create `data_volume` directory under `/var/lib/docker/volumes` folder. Then we can run to mount with container; `docker run -v data_volument:/var/lib/mysql --name -d mysql_db mysql`
+- Volume Mount - mounts the directory in the volume folder & Bind Mount - mounts the directory in any location in the host machine.
+- Using `-v` is old way. The new way is to use `--mount` option which is more verbose.
+- Example: `docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql -d --name mysql_db mysql` 
+- Docker common storage drivers - `AUFS`, `ZFS`, `BTRFS`, `Device Mapper`, `Overlay`, `Overlay2`
