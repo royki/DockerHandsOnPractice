@@ -128,3 +128,14 @@ _Push an Image to the Registry_
 - `docker network inspect wp-mysql-network`
 - `docker run -d --name webapp -e DB_Host=mysql-db --network wp-mysql-network kodekloud/simple-webapp-mysql`
 - `docker network inspect wp-mysql-network`
+
+### _Docker Registry_
+- Docker public DNS is Docker Hub -> `docker.io`
+- image: `Registry/User_Account/Image_Or_Repository` -> `docker.io/ngnix/nginx`
+- Run from private registry: `docker run private-registry.io/apps/internal-app`
+- Docker registry is itself an application and availabe as an image and can be deployed as container in local.
+- Deploy docker registry in locally - `docker run -d --name local-registry -p 5000:5000 registry:2`
+- `docker image tag my-image localhost:5000/my-image`
+- Push image in local registry - `docker push localhost:5000/my-image`
+- Pull image from local registry - `docker pull localhost:5000/my-image`
+- Pull image from another host registry - `docker pull 192.168.56.100:5000/my-image`
