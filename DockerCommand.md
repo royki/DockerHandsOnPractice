@@ -114,7 +114,17 @@ _Push an Image to the Registry_
 - `Bridge`, `None`, `Host`
 - `docker run ubuntu --network=none` or `docker run ubuntu --network=host`. Default is `bridge`
 - Bridge network range start from `172.17.0.0`
-- By default docker create one internal network. We can create as well internal network as - `docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network`
+- By default docker create one internal network. We can create as well internal network as - `docker network create --driver=bridge --subnet=182.18.0.0/16 custom-isolated-network`
 - `docker network ls`
 - `docker inspect container_id`
 - docker container DNS always run at `127.0.0.11` port number.
+- `docker network create wp-mysql-network --driver=bridge --subnet=182.18.0.1/24 --gateway=182.18.0.1`
+- `docker network ls`
+- `docker inspect alpine-1 | grep -i network`
+- `docker network inspect bridge`
+- `docker run -d --name alpine-2 --network none alpine`
+- `docker network create wp-mysql-network --driver=bridge --subnet=182.18.0.1/24 --gateway=182.18.0.1`
+- `docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 --network wp-mysql-network mysql`
+- `docker network inspect wp-mysql-network`
+- `docker run -d --name webapp -e DB_Host=mysql-db --network wp-mysql-network kodekloud/simple-webapp-mysql`
+- `docker network inspect wp-mysql-network`
