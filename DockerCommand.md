@@ -109,3 +109,12 @@ _Push an Image to the Registry_
 - Using `-v` is old way. The new way is to use `--mount` option which is more verbose.
 - Example: `docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql -d --name mysql_db mysql` 
 - Docker common storage drivers - `AUFS`, `ZFS`, `BTRFS`, `Device Mapper`, `Overlay`, `Overlay2`
+
+### _Docker Network_
+- `Bridge`, `None`, `Host`
+- `docker run ubuntu --network=none` or `docker run ubuntu --network=host`. Default is `bridge`
+- Bridge network range start from `172.17.0.0`
+- By default docker create one internal network. We can create as well internal network as - `docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network`
+- `docker network ls`
+- `docker inspect container_id`
+- docker container DNS always run at `127.0.0.11` port number.
