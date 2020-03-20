@@ -139,3 +139,27 @@ _Push an Image to the Registry_
 - Push image in local registry - `docker push localhost:5000/my-image`
 - Pull image from local registry - `docker pull localhost:5000/my-image`
 - Pull image from another host registry - `docker pull 192.168.56.100:5000/my-image`
+
+### _Limiting Memory & CPU Usage_
+
+Follow the command `docker info`
+To Change this - `WARNING: No swap limit support`
+*to Configure/Enable* from `vi /etc/default/grub`
+  - ` GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=0"` from `GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"`
+  - `sudo update-grub`
+
+- `docker stats` or `docker stats container_name` or `docker stats container_id`
+- Limiting Memory Usage
+  - Hard Limit 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m" nginx`
+  - Soft Limit 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory-reservation="256m" nginx` 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m"--memory-reservation="512m" nginx` 
+  - Using Memory Swap (To limit a container's use of memory swap to disk use)
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m" --memory-swap="512m" nginx`
+- Limiting CPU Usage
+  - `docker run --name lb_nginx -d -p 8081:80 --cpus=".5" nginx`
+  - To limit a container’s CPU shares use `--cpus-shares`
+    - `docker run --name lb_nginx -d -p 8081:80 --cpus-shares="512" nginx`
+   
+
