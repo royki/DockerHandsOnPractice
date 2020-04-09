@@ -2,7 +2,8 @@
 
 _Docker Run/Pull/Stop/Delete_
 - `docker run --name "name_of_container" -d "container_image_name"`  
-  - `-d` in daemon mode(run behind the process)
+  - `-d` in daemon mode (run behind the process)
+- `docker run --name "name_of_container" -d -t "container_image_name"` (to create the container and keep it up/running behind)
 - `docker ps` (list of running docker containers/to identify a running container in docker)
 - `docker ps -a` (list of all docker containers, that are not discarded yet)
 - `docker inspect` (runtime information of container; listing metadata about a running or stopped container in json format)
@@ -11,6 +12,8 @@ _Docker Run/Pull/Stop/Delete_
 - `docker stop CONTIANER_NAME/CONTAINER_ID` (stopping a running container)
 - `docker kill CONTIANER_NAME/CONTAINER_ID` (stopping a running container forcefully)
 - `docker kill -s SIGKILL CONTIANER_NAME/CONTAINER_ID`
+- `docker start CONTAINER_NAME/CONTAINER_ID` (to restart a stopped container)
+- `docker start -ai CONTAINER_NAME/CONTAINER_ID` (to restart a stopped container and output of the command)
 - `docker restart CONTIANER_NAME/CONTAINER_ID`
 - `docker restart CONTIANER_NAME/CONTAINER_ID` (my-httpd-container)
 - `docker rmi CONTIANER_NAME/CONTAINER_ID` (delete a container image from machine/cached)`
@@ -91,3 +94,72 @@ _Push an Image to the Registry_
 - `docker logs --details container_name|ID`
 - `docker logs --tail all container_name|ID`
 - `docker logs -f container_name|ID`
+
+### _Run Docker in Remote_
+- `docker -H=remote-docker-engine:PORT_NO`
+- example - `docker -H=10.123.2.1:2375 run --name -d lb_nginx nginix:v1`
+
+### _Run with resource limit_
+- `docker run --cpus=.5 --name ubuntu_container -d ubuntu` [not more than 50% cpus]
+- `docker run --memory=100m --name ubuntu_container -d ubuntu` [use 100 mb]
+
+### _Docker Volume_
+- `docker volume create data_volume` . It will create `data_volume` directory under `/var/lib/docker/volumes` folder. Then we can run to mount with container; `docker run -v data_volument:/var/lib/mysql --name -d mysql_db mysql`
+- Volume Mount - mounts the directory in the volume folder & Bind Mount - mounts the directory in any location in the host machine.
+- Using `-v` is old way. The new way is to use `--mount` option which is more verbose.
+- Example: `docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql -d --name mysql_db mysql` 
+- Docker common storage drivers - `AUFS`, `ZFS`, `BTRFS`, `Device Mapper`, `Overlay`, `Overlay2`
+
+### _Docker Network_
+- `Bridge`, `None`, `Host`
+- `docker run ubuntu --network=none` or `docker run ubuntu --network=host`. Default is `bridge`
+- Bridge network range start from `172.17.0.0`
+- By default docker create one internal network. We can create as well internal network as - `docker network create --driver=bridge --subnet=182.18.0.0/16 custom-isolated-network`
+- `docker network ls`
+- `docker inspect container_id`
+- docker container DNS always run at `127.0.0.11` port number.
+- `docker network create wp-mysql-network --driver=bridge --subnet=182.18.0.1/24 --gateway=182.18.0.1`
+- `docker network ls`
+- `docker inspect alpine-1 | grep -i network`
+- `docker network inspect bridge`
+- `docker run -d --name alpine-2 --network none alpine`
+- `docker network create wp-mysql-network --driver=bridge --subnet=182.18.0.1/24 --gateway=182.18.0.1`
+- `docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 --network wp-mysql-network mysql`
+- `docker network inspect wp-mysql-network`
+- `docker run -d --name webapp -e DB_Host=mysql-db --network wp-mysql-network kodekloud/simple-webapp-mysql`
+- `docker network inspect wp-mysql-network`
+
+### _Docker Registry_
+- Docker public DNS is Docker Hub -> `docker.io`
+- image: `Registry/User_Account/Image_Or_Repository` -> `docker.io/ngnix/nginx`
+- Run from private registry: `docker run private-registry.io/apps/internal-app`
+- Docker registry is itself an application and availabe as an image and can be deployed as container in local.
+- Deploy docker registry in locally - `docker run -d --name local-registry -p 5000:5000 registry:2`
+- `docker image tag my-image localhost:5000/my-image`
+- Push image in local registry - `docker push localhost:5000/my-image`
+- Pull image from local registry - `docker pull localhost:5000/my-image`
+- Pull image from another host registry - `docker pull 192.168.56.100:5000/my-image`
+
+### _Limiting Memory & CPU Usage_
+
+Follow the command `docker info`
+To Change this - `WARNING: No swap limit support`
+*to Configure/Enable* from `vi /etc/default/grub`
+  - ` GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=0"` from `GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"`
+  - `sudo update-grub`
+
+- `docker stats` or `docker stats container_name` or `docker stats container_id`
+- Limiting Memory Usage
+  - Hard Limit 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m" nginx`
+  - Soft Limit 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory-reservation="256m" nginx` 
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m"--memory-reservation="512m" nginx` 
+  - Using Memory Swap (To limit a container's use of memory swap to disk use)
+    - `docker run --name lb_nginx -d -p 8081:80 --memory="256m" --memory-swap="512m" nginx`
+- Limiting CPU Usage
+  - `docker run --name lb_nginx -d -p 8081:80 --cpus=".5" nginx`
+  - To limit a container’s CPU shares use `--cpus-shares`
+    - `docker run --name lb_nginx -d -p 8081:80 --cpus-shares="512" nginx`
+   
+
