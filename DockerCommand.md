@@ -104,11 +104,34 @@ _Push an Image to the Registry_
 - `docker run --memory=100m --name ubuntu_container -d ubuntu` [use 100 mb]
 
 ### _Docker Volume_
-- `docker volume create data_volume` . It will create `data_volume` directory under `/var/lib/docker/volumes` folder. Then we can run to mount with container; `docker run -v data_volument:/var/lib/mysql --name -d mysql_db mysql`
-- Volume Mount - mounts the directory in the volume folder & Bind Mount - mounts the directory in any location in the host machine.
+- Image Layers - `Read Only`; Container Layer - `Read Write`
+- COPY-ON-WRITE - Write/Update of a file can only apply on Container Layer or Read Write Layer.
+- `docker volume create data_volume` . It will create `data_volume` directory under `/var/lib/docker/volumes` folder. Then we can run to mount with container;
+   - `docker run -v data_volument:/var/lib/mysql --name -d mysql_db mysql`
+- Two Types of Volume
+  - Volume Mount - mounts a volumn creating by docker & mounts the directory in the `/var/lib/docker/volume` directory.
+  - Bind Mount - mounts the directory in any location in the host machine.
 - Using `-v` is old way. The new way is to use `--mount` option which is more verbose.
 - Example: `docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql -d --name mysql_db mysql` 
-- Docker common storage drivers - `AUFS`, `ZFS`, `BTRFS`, `Device Mapper`, `Overlay`, `Overlay2`
+- Storage Drivers
+  - Docker common storage drivers - `AUFS`, `ZFS`, `BTRFS`, `Device Mapper`, `Overlay`, `Overlay2`
+- Volume Drivers (Volumes are handled by Volume Driver Plugins)
+  - The default Vuloumn Driver Plugin is `Local`. The Local Volume Driver Plugin helps creating a volumn in Docker Host Machine and store the data under `/var/lib/docker/volumes` directory.
+  - Volume Driver Provider: `Local`, `Azure File Storage`, `Convoy`, `DigitalOcean Block Storage`, `Flocker`, `GCE-Docker`, `GlusterFS`, `NetApp`, `PortWox`, `RexRay` etc.
+  - - Example: `docker run -it --name mysql-con --volume-driver rexray/ebs --mount src=ebs-vol, target=/var/lib/mysql mysql`
+  
+### Container Storage Interface (CSI)
+
+- Container Runtime - `rkt`, `cri-o`. 
+- Container Runtime Interface(CRI) - `rkt`, `cri-o`
+- Container Network Interface(CNI) -  `weaveworks`, `flannel`, `cilium`
+- Container Storage Interface(CSI) - `portwox`, `Amazon EBS`, `GlusterFS`
+- CSI is not built on K8S specific standard rather built on general storage standard that can support any storage vendor.
+- Kubernetes, CloudFoundry & Mesos are on board with CSI.
+- Set of RPC 
+  - CreateVolume
+  - DeleteVolume
+  - ControllerPublishVolume
 
 ### _Docker Network_
 - `Bridge`, `None`, `Host`
