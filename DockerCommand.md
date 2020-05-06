@@ -184,5 +184,12 @@ To Change this - `WARNING: No swap limit support`
   - `docker run --name lb_nginx -d -p 8081:80 --cpus=".5" nginx`
   - To limit a container’s CPU shares use `--cpus-shares`
     - `docker run --name lb_nginx -d -p 8081:80 --cpus-shares="512" nginx`
-   
+
+### _Security_
+
+- `/usr/include/linux/capabilites.h`
+- `docker run --cap-add NET_BIND ubuntu`
+- `docker run --cap-drop KILL ubuntu`
+- `docker run --privileged ubuntu`
+
 
