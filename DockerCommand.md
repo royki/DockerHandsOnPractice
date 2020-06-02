@@ -192,4 +192,19 @@ To Change this - `WARNING: No swap limit support`
 - `docker run --cap-drop KILL ubuntu`
 - `docker run --privileged ubuntu`
 
-
+---
+Create a docker-compose.yml file under the path /root/wordpress. Once done, run a docker-compose up.
+```yaml
+version: '3.0'
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    image: postgres
+  wordpress:
+    image: wordpress
+    links:
+    - db
+    ports:
+    - 8085:80
+```
