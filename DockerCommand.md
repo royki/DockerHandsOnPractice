@@ -208,3 +208,5 @@ services:
     ports:
     - 8085:80
 ```
+- `docker-compose -f docker-compose.yaml config`
+- `docker-compose up`
