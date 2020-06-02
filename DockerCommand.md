@@ -210,3 +210,20 @@ services:
 ```
 - `docker-compose -f docker-compose.yaml config`
 - `docker-compose up`
+---
+- Create a container with volume
+- `docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 -v /opt/data:/var/lib/mysql -d mysql`
+- To view the data in mysql-db container
+- `docker exec mysql-db mysql -pdb_pass123 -e 'use foo; select * from myTable'`
+---
+- `docker network ls`
+- What is the subnet configured on bridge network?
+- `docker inspect bridge`
+- Run a container named alpine-2 using the alpine image and attach it to the none network.
+- `docker run --name alpine-2 --network=none -d alpine`
+- Create a new network named wp-mysql-network using the bridge driver. Allocate subnet 182.18.0.1/24. Configure Gateway 182.18.0.1
+- `docker network create wp-mysql-network --subnet=182.18.0.1/24 --gateway=182.18.0.1`
+- Deploy a mysql database using the mysql:5.6 image and name it mysql-db. Attach it to the newly created network wp-mysql-network. Set the database password to use db_pass123. The environment variable to set is MYSQL_ROOT_PASSWORD
+- `docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 --network=wp-mysql-network -d mysql:5.6`
+- Deploy a web application named webapp, using image kodekloud/simple-webapp-mysql. Expose port to 38080 on the host. The application takes an environment variable DB_Host that has the hostname of the mysql database. Make sure to attach it to the newly created network wp-mysql-network
+- `docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql`
