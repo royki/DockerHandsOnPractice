@@ -49,7 +49,7 @@ _Publishing Image to a Registry_
     - **To associate multiple tags with a single image, use `docker tag` command**
     - Tags can be removed from the daemon using `rmi`
         - `docker rmi devops/mysql:snapshot`
-    - **Because multiple tags can point to the same image, to removean image referred to by multiple tags, each tag should be individually removed first**
+    - **Because multiple tags can point to the same image, to remove an image referred to by multiple tags, each tag should be individually removed first**
 
 _Push an Image to the Registry_
 - `docker push`
