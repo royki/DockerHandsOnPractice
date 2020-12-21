@@ -34,3 +34,14 @@ Some Dockerfile instructions
 - `WORKDIR` :The WORKDIR instruction is used to define the default working directory of your Docker image. The RUN, CMD, ENTRYPOINT, and ADD instructions follow the WORKDIR instruction. You can add multiple WORKDIR instruction on your Dockerfile, and if there is doesn't exist, it will be created automatically.
 - `USER` :The USER instruction is used to define the default user or gid when running the image. The RUN, CMD, and ENTRYPOINT follow the USER instruction in the Dockerfile.
 - `VOLUME` :The VOLUME instruction ad used to enable access/linked directory between the container and the host machine.
+
+---
+
+- `RUN` executes command(s) in a new layer and creates a new image. E.g., it is often used for installing software packages.
+- `CMD` sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+- `ENTRYPOINT` configures a container that will run as an executable.
+
+---
+
+- `COPY` & `ADD` are both Dockerfile instructions that serve similar purposes to copy file/dir from source to destination. [local file or directory from host into the Docker container itself]
+- `ADD` - with 2 more functionalities - the tar and remote URL handling.
