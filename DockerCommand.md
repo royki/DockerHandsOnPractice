@@ -75,11 +75,11 @@ _Push an Image to the Registry_
     - `docker commit mysql-basic mysql-cutom` (to commit the changes to another image, run this command) !?
 
 ### _To Create a new image, there are two approaches_
+
 - Using a running container
-    - 
+     - `docker run -p host_port:container_port --name container_name image_name`
 - Using a Dockerfile
-    - `docker build -t DOCKER_IMAGE_NAME /path/DOCKER_FILE`
-    - `docker run -p host_port:container_port --name container_name image_name`
+    - `docker build -t DOCKER_IMAGE_NAME /path/DOCKER_FILE`   
 - To mount volume within host and container
     - `docker run -p host_port:container_port --name container_name -v /path/folder:/path/in_container image_name`
     - Example: `docker run -p 81:80 --name localdocker -v /home/user/Docker/src:/var/www/html testdocker`
