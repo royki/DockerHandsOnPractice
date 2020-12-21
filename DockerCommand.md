@@ -14,9 +14,8 @@ _Docker Run/Pull/Stop/Delete_
 - `docker kill -s SIGKILL CONTIANER_NAME/CONTAINER_ID`
 - `docker start CONTAINER_NAME/CONTAINER_ID` (to restart a stopped container)
 - `docker start -ai CONTAINER_NAME/CONTAINER_ID` (to restart a stopped container and output of the command)
-- `docker restart CONTIANER_NAME/CONTAINER_ID`
-- `docker restart CONTIANER_NAME/CONTAINER_ID` (my-httpd-container)
-- `docker rmi CONTIANER_NAME/CONTAINER_ID` (delete a container image from machine/cached)`
+- `docker restart CONTIANER_NAME/CONTAINER_ID`  (my-httpd-container)
+- `docker rmi IMAGE_NAME/IMAGE_ID` (delete a container image from machine/cached)`
 - `docker rm CONTIANER_NAME/CONTAINER_ID` (delete a container not the image)
 - `docker rm $(docker ps -aq)` (deleting all container, `-q` returns only Id of containers)
 - `docker stop $(docker ps -q)`
